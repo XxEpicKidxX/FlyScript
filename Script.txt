@@ -1,4 +1,4 @@
-local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/7yhx/kwargs_Ui_library/main/source.lua"))
+--[[local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/7yhx/kwargs_Ui_library/main/source.lua"))
 
 local UI = lib:Create{
     Theme = "Dark",
@@ -15,7 +15,7 @@ local Divider = main:Divider{
 local QuitDivider = Main:Divider{
     Name = "Sair"
 }
-
+--]]
 local player = game.Players.LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
 local rootPart = character:WaitForChild("HumanoidRootPart")
