@@ -1,0 +1,67 @@
+local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/7yhx/kwargs_Ui_library/main/source.lua"))
+
+local UI = lib:Create{
+    Theme = "Dark",
+    Size = UDim2.new(0,555,0,400)
+}
+local Main = UI:Tab{
+    Name = "Inicio"
+}
+
+local Divider = main:Divider{
+    Name = "Inicio shift"
+}
+
+local QuitDivider = Main:Divider{
+    Name = "Sair"
+}
+
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local rootPart = character:WaitForChild("HumanoidRootPart")
+local runService = game:GetService("RunService")
+
+-- Cria o BodyPosition
+local bodyPosition = Instance.new("BodyPosition")
+bodyPosition.MaxForce = Vector3.new(0, 0, 0)
+bodyPosition.Position = rootPart.Position
+bodyPosition.Parent = rootPart
+
+local flutuando = false
+local altura = 5
+
+-- Função para alternar flutuação
+local function alternar()
+    flutuando = not flutuando
+    if flutuando then
+        bodyPosition.MaxForce = Vector3.new(0, math.huge, 0)
+        print("🟢 Flutuação ativada")
+    else
+        bodyPosition.MaxForce = Vector3.new(0, 0, 0)
+        print("🔴 Flutuação desativada")
+    end
+end
+
+-- Atualiza a posição
+runService.Heartbeat:Connect(function()
+    if flutuando then
+        bodyPosition.Position = rootPart.Position + Vector3.new(0, altura, 0)
+    end
+end)
+
+-- Interface (ScreenGui e botão)
+local tela = Instance.new("ScreenGui", player:WaitForChild("PlayerGui"))
+local botao = Instance.new("TextButton", tela)
+
+botao.Size = UDim2.new(0, 120, 0, 50)
+botao.Position = UDim2.new(0.5, -60, 0.9, -25)
+botao.Text = "Alternar Flutuação"
+botao.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
+botao.TextColor3 = Color3.new(1,1,1)
+botao.Font = Enum.Font.SourceSansBold
+botao.TextScaled = true
+
+-- Evento de clique no botão
+botao.MouseButton1Click:Connect(function()
+    alternar()
+end)
